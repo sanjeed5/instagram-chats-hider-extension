@@ -1,0 +1,88 @@
+/* Hide DM sidebar using multiple targeting strategies */
+/* These styles will only apply when the body has the data-instagram-dm-page attribute */
+
+/* Strategy 1: Target by role and aria-label (most resilient) */
+body[data-instagram-dm-page].hide-dm-sidebar div[aria-label="Thread list"][role="navigation"] {
+  display: none !important;
+}
+
+/* Strategy 2: Target by role="navigation" that contains tablist */
+body[data-instagram-dm-page].hide-dm-sidebar div[role="navigation"] > div[role="tablist"] {
+  display: none !important;
+}
+
+body[data-instagram-dm-page].hide-dm-sidebar div[role="navigation"]:has(div[role="tablist"]) {
+  display: none !important;
+}
+
+/* Strategy 3: Target by Instagram's x-prefixed class patterns */
+body[data-instagram-dm-page].hide-dm-sidebar div[class*="x9f619"][class*="x1n2onr6"][class*="x1ja2u2z"][class*="x78zum5"][class*="xdt5ytf"][class*="x2lah0s"] {
+  display: none !important;
+}
+
+/* Strategy 4: Target by structure - elements containing message threads */
+body[data-instagram-dm-page].hide-dm-sidebar div[role="list"][aria-label*="Chat"] {
+  display: none !important;
+}
+
+body[data-instagram-dm-page].hide-dm-sidebar div:has(div[role="list"] > div[role="listitem"]) {
+  display: none !important;
+}
+
+/* Strategy 5: Fallback to original XPath-like CSS path */
+body[data-instagram-dm-page].hide-dm-sidebar [role="main"] section > div > div > div > div:first-child > div > div:first-child {
+  display: none !important;
+}
+
+/* Target Instagram's specific structure classes if they exist */
+body[data-instagram-dm-page].hide-dm-sidebar div._aa4b {
+  display: none !important;
+}
+
+body[data-instagram-dm-page].hide-dm-sidebar div._aa4c {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+/* Ensure smooth transitions for sidebar visibility */
+body[data-instagram-dm-page] [role="main"] section > div > div > div > div:first-child > div > div:first-child,
+body[data-instagram-dm-page] div[aria-label="Thread list"][role="navigation"],
+body[data-instagram-dm-page] div[role="navigation"]:has(div[role="tablist"]) {
+  transition: display 0.3s ease;
+}
+
+/* Instagram button class for consistency */
+.instagram-button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* Ensure button is always visible */
+#ig-sidebar-toggle {
+  visibility: visible !important;
+  z-index: 2;
+}
+
+/* Ensure proper spacing in the navigation */
+.x1n2onr6.x6s0dn4.x78zum5 {
+  margin-right: 8px;
+}
+
+/* Transition for the slash element */
+.toggle-slash {
+  transition: opacity 0.3s ease;
+}
+
+/* SVG icon styles */
+#ig-sidebar-toggle svg {
+  width: 24px !important;
+  height: 24px !important;
+  display: block !important;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate icon when sidebar is hidden */
+#ig-sidebar-toggle.sidebar-hidden svg {
+  transform: rotate(180deg);
+}
